@@ -61,7 +61,7 @@ was generated for doing CRUD actions inside of hooks,
 this will prevent circular function calls and keep 
 it unidirectional
 */
-    prisma.deletePosts({})
+    await prisma.deletePosts({})
   };
   updateBefore = async (ids: string[], ctx: Ctx) => {
     // do something here
