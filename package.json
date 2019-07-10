@@ -1,6 +1,6 @@
 {
   "name": "prisma-client-lib-hook",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "makePrismaClientClass wrapper for adding hook capabilities",
   "main": "index.ts",
   "scripts": {
