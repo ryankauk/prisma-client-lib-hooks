@@ -1,8 +1,9 @@
+
 import { provoke } from './hooks/index';
 import { Model, Client as BaseClient, BaseClientOptions } from 'prisma-client-lib';
 import { print } from 'graphql';
 
-import { Hook, isObjectType, isNamed, isNonNull } from './hooks/types';
+import { Hook, isObjectType, isNamed, isNonNull, BaseCtx } from './hooks/types';
 
 export function makePrismaClientClass<T>({
   typeDefs,
@@ -25,6 +26,7 @@ export function makePrismaClientClass<T>({
       provoke.bind(this);
       hooks.forEach(hook => {
         let notExists = Object.keys(hook.models).reduce((arr, modelName) => {
+
           if (!models.find(el => el.name === modelName)) {
             arr.push(modelName);
           }
@@ -35,7 +37,7 @@ export function makePrismaClientClass<T>({
 
         let noIds = Object.keys(hook.models).reduce((arr, modelName) => {
           let Type = this._schema.getType(modelName);
-          if (!isObjectType(Type)) {
+          if (!Type || !isObjectType(Type)) {
             arr.push(modelName);
             return arr;
           }
@@ -56,7 +58,7 @@ export function makePrismaClientClass<T>({
       });
     }
 
-    async execute(operation, document, variables) {
+    async execute(operation: any, document: any, variables: any) { // TODO: remove any
 
       let query = print(document);
       let resolve = () => {
@@ -75,3 +77,5 @@ export function makePrismaClientClass<T>({
     }
   } as any;
 }
+
+export { Hook, BaseCtx }

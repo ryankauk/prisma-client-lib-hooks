@@ -2,9 +2,12 @@
   "name": "prisma-client-lib-hooks",
   "version": "0.0.4",
   "description": "makePrismaClientClass wrapper for adding hook capabilities",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "prisma",
@@ -14,7 +17,9 @@
   "author": "Ryan Kauk",
   "license": "ISC",
   "devDependencies": {
-    "prisma-client-lib": "^1.34.1"
+    "@types/graphql": "^14.2.2",
+    "prisma-client-lib": "^1.34.1",
+    "typescript": "^3.5.3"
   },
   "peerDependencies": {
     "prisma-client-lib": "^1.30.0"

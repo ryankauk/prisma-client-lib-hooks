@@ -1,4 +1,4 @@
-import { Hook } from "./types";
+import { Hook, } from "./types";
 
 // elasticHook.runChecks();
 import {
@@ -9,7 +9,7 @@ import {
   FieldNode,
   SelectionNode
 } from "graphql";
-import { runHooks } from "./utils";
+import { runHooks, MethodIndexes } from "./utils";
 export function isExecutable(object: DefinitionNode): object is ExecutableDefinitionNode {
   return (object as any).selectionSet;
 } // user defined type guard
@@ -22,7 +22,7 @@ interface Prisma {
 }
 export async function provoke(
   prisma: Prisma,
-  resolve,
+  resolve: () => Promise<any>,
   operation: OperationTypeNode,
   document: DocumentNode,
   variables: any
@@ -52,7 +52,8 @@ export async function provoke(
   function checkForId() {
     if (
       isField(mutation) &&
-      !mutation.selectionSet.selections.find(sel => sel.kind === "Field" && sel.name.value === "id")
+      (!mutation.selectionSet ||
+        !mutation.selectionSet.selections.find(sel => sel.kind === "Field" && sel.name.value === "id"))
     ) {
       throw Error("Sync hook requires id in selection set.");
     }
@@ -86,10 +87,10 @@ export async function provoke(
   // let prismaQueryKey = modelName.
 
   let hooks = prisma.hooks.filter(hook => {
-    let hookAction = name.value.match(/^[^A-Z]*/);
+
     // TODO: hook[hookAction[0]] &&
     return (
-      !(!hook[`${hookAction[0]}Before`] && !hook[`${hookAction[0]}After`]) &&
+      !(!hook[`${method}Before` as MethodIndexes] && !hook[`${method}After` as MethodIndexes]) &&
       hook.models &&
       hook.models[modelName] === true
     );
@@ -108,7 +109,7 @@ export async function provoke(
     return result.original;
   } else {
     return runHooks(prisma, hooks, modelName, modelNameFnEnding, variables, resolve, {
-      method: method as "create" | "update" | "delete",
+      method: method as "update" | "delete",
       many: !!many
     });
   }
