@@ -58,7 +58,7 @@ export async function provoke(
     }
   }
 
-  let getResultId = async function(): Promise<{
+  let getResultId = async function (): Promise<{
     original: any;
     ids: string[];
   }> {
@@ -91,7 +91,7 @@ export async function provoke(
     return (
       !(!hook[`${hookAction[0]}Before`] && !hook[`${hookAction[0]}After`]) &&
       hook.models &&
-      (hook.models[modelName] !== null || hook.models[modelName] !== undefined)
+      hook.models[modelName] === true
     );
   });
 

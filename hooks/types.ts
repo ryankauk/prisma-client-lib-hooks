@@ -28,7 +28,7 @@ export abstract class Hook<
   UpdateCtx extends BaseCtx<string> = BaseCtx<string>,
   DeleteCtx extends BaseCtx<string> = BaseCtx<string>
   > {
-  abstract models: { [k: string]: string };
+  abstract models: { [k: string]: boolean };
   createAfter: (data: string[], ctx: CreateCtx) => Promise<any>;
   updateBefore: (data: string[], ctx: UpdateCtx) => Promise<any>;
   updateAfter: (data: string[], ctx: UpdateCtx) => Promise<any>;
