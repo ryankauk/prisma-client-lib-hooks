@@ -29,6 +29,8 @@ The create method didn't have a before because I cannot get the id prior to the 
 
 ## Examples
 
+Take a look at ./examples/src/hooks
+
 Example of hook:
 
 ```typescript
