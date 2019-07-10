@@ -1,4 +1,4 @@
-# Prisma Client Hooks
+# Prisma Client Lib Hooks
 
 This package is to add hook functionality to prisma-client-lib package. 
 
