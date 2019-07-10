@@ -34,7 +34,7 @@ Example of hook:
 ```typescript
 // hook.ts
 import { prisma } from "@generated/prisma-client-ts";
-import { Hook, BaseCtx } from "prisma-client-lib-hook/hooks/types";
+import { Hook, BaseCtx } from "prisma-client-lib-hooks/hooks/types";
 
 interface Ctx extends BaseCtx<EntityNames> {
   addToContext: boolean;
