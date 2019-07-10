@@ -6,6 +6,12 @@ IMPORTANT: Prisma Photon will have these capabilities built in, but until it's a
 
 I built this package mainly for synchronization. I prefer to keep any validations, permission or query variable changes specific to a graphql resolver. This allows me to see the uni-direction of the data. The main purpose was if a model is used throughout the app and the CUD operation might come from multiple places. Primary use case is synchronization with other datasources.
 
+## Installation
+
+```bash	
+$ npm install prisma-client-lib prisma-client-lib-hooks
+```
+
 ## Context 
 
 Context that gets passed has the model name, and the parsed ending of the crud operation so that you can concatenate it with another method if needed
@@ -81,7 +87,6 @@ import { Prisma, models, ClientConstructor } from '@generated/prisma-client-ts/i
 import { typeDefs } from '@generated/prisma-client-ts/prisma-schema';
 
 import { makePrismaClientClass } from 'prisma-client-lib-hooks';
-
 
 export const HookedPrisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
