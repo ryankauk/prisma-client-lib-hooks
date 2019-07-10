@@ -1,9 +1,9 @@
 
-import { provoke } from './hooks/index';
+import { provoke } from './src/index';
 import { Model, Client as BaseClient, BaseClientOptions } from 'prisma-client-lib';
 import { print } from 'graphql';
 
-import { Hook, isObjectType, isNamed, isNonNull, BaseCtx } from './hooks/types';
+import { Hook, isObjectType, isNamed, isNonNull, BaseCtx } from './src/types';
 
 export function makePrismaClientClass<T>({
   typeDefs,

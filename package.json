@@ -9,6 +9,12 @@
     "build": "tsc",
     "prepublish": "npm run build"
   },
+  "files": [
+    "/src",
+    "/dist",
+    "index.ts",
+    "tsconfig.json"
+  ],
   "keywords": [
     "prisma",
     "hooks",
