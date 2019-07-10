@@ -77,7 +77,7 @@ Example of initiating prisma with hooks:
 ```typescript
 
 import { ExampleHook } from './hook.ts';
-import { Prisma, models, ClientConstructor } from '../../generated/prisma-client-ts/index';
+import { Prisma, models, ClientConstructor } from '@generated/prisma-client-ts/index';
 import { typeDefs } from '@generated/prisma-client-ts/prisma-schema';
 
 import { makePrismaClientClass } from 'prisma-client-lib-hooks';
