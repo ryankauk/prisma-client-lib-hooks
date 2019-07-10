@@ -1,0 +1,32 @@
+{
+  "material-icon-theme.folders.associations": {
+    "infrastructure": "server",
+    "prisma": "database",
+    "lambda": "aws",
+    "features": "components",
+    "system": "lib"
+  },
+  // "workbench.colorTheme": "Dracula",
+  "workbench.iconTheme": "material-icon-theme",
+  // "material-icon-theme.folders.color": "#000",
+  // "stylusSupremacy.insertBraces": false,
+  // "stylusSupremacy.insertColons": false,
+  // "stylusSupremacy.insertSemicolons": false,
+  // "yaml.schemas": {
+  //   "http://json.schemastore.org/prisma": "prisma.yml"
+  // },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  // "[javascript]": {
+  //   "editor.formatOnSave": true
+  // },
+  // "prettier.singleQuote": true,
+  // "prettier.tslintIntegration": true,
+  // "material-icon-theme.opacity": 1,
+  // "material-icon-theme.activeIconPack": "react",
+  "prettier.printWidth": 100,
+  // "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // "search.usePCRE2": true
+}

@@ -1,8 +1,9 @@
 import { provoke } from './hooks/index';
 import { Model, Client as BaseClient, BaseClientOptions } from 'prisma-client-lib';
 import { print } from 'graphql';
-import { DocumentNode, OperationTypeNode } from 'graphql';
-import { Hook } from './hooks/types';
+
+import { Hook, isObjectType, isNamed, isNonNull } from './hooks/types';
+
 export function makePrismaClientClass<T>({
   typeDefs,
   endpoint,
@@ -10,6 +11,7 @@ export function makePrismaClientClass<T>({
   models,
   hooks
 }: {
+
   typeDefs: string;
   endpoint: string;
   secret?: string;
@@ -21,7 +23,37 @@ export function makePrismaClientClass<T>({
     constructor(options: BaseClientOptions) {
       super({ typeDefs, endpoint, secret, models, ...options });
       provoke.bind(this);
-      hooks.forEach(hook => hook.runChecks());
+      hooks.forEach(hook => {
+        let notExists = Object.keys(hook.models).reduce((arr, modelName) => {
+          if (!models.find(el => el.name === modelName)) {
+            arr.push(modelName);
+          }
+          return arr;
+        }, []);
+
+        if (notExists.length > 0) throw Error(`Models ${notExists.join(',')} don't exist in prisma schema`);
+
+        let noIds = Object.keys(hook.models).reduce((arr, modelName) => {
+          let Type = this._schema.getType(modelName);
+          if (!isObjectType(Type)) {
+            arr.push(modelName);
+            return arr;
+          }
+          let idType = Type.getFields()['id'];
+          if (
+            !idType ||
+            !isNonNull(idType.astNode.type) ||
+            !isNamed(idType.astNode.type.type) ||
+            idType.astNode.type.type.name.value !== 'ID'
+          ) {
+            arr.push(modelName);
+            return arr;
+          }
+
+          return arr;
+        }, []);
+        if (noIds.length > 0) throw Error(`Models ${noIds.join(',')} don't implement field id: ID!`);
+      });
     }
 
     async execute(operation, document, variables) {
@@ -33,7 +65,7 @@ export function makePrismaClientClass<T>({
       // return super.execute(operation, document, variables);
       if (provoke) {
 
-        
+
         super.execute.bind(this);
         return provoke(this, resolve, operation, document, variables);
       } else {
