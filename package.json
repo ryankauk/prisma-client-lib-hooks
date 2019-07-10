@@ -1,0 +1,16 @@
+{
+  "name": "prisma-client-lib-hooks",
+  "version": "0.0.1",
+  "description": "makePrismaClientClass wrapper for adding hook capabilities",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "prisma",
+    "hooks",
+    "typescript"
+  ],
+  "author": "Ryan Kauk",
+  "license": "ISC"
+}
